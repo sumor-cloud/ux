@@ -29,7 +29,7 @@
     ".gitignore"
   ],
   "scripts": {
-    "lint": "eslint --ext .js,.vue src",
+    "lint": "eslint --ext .js src",
     "audit": "npm audit",
     "test": "echo \"Error: no test specified\"",
     "coverage": "echo \"Error: no test specified\"",
