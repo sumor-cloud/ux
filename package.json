@@ -23,9 +23,8 @@
     "eslint-config-standard": "^17.1.0"
   },
   "files": [
-    "dist",
+    "src",
     "LICENSE",
-    "index.js",
     ".gitignore"
   ],
   "scripts": {
