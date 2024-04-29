@@ -1,0 +1,34 @@
+{
+  "name": "@sumor/ux",
+  "description": "Sumor Cloud UI Library",
+  "version": "1.0.12",
+  "license": "MIT",
+  "repository": "sumor-cloud/ux",
+  "author": "Sumor Cloud Ltd",
+  "homepage": "https://sumor.cloud",
+  "type": "module",
+  "main": "./src/index.js",
+  "exports": "./src/index.js",
+  "keywords": [
+    "vue"
+  ],
+  "dependencies": {
+    "axios": "^1.3.2",
+    "dayjs": "^1.11.10",
+    "vconsole": "^3.15.1",
+    "vue": "^3.3.4"
+  },
+  "files": [
+    "dist",
+    "LICENSE",
+    "index.js",
+    ".gitignore"
+  ],
+  "scripts": {
+    "push-tag": "git push --tags && git push",
+    "publish-beta": "npm version prerelease --preid beta && npm run push-tag",
+    "publish-release-patch": "npm version patch && npm run push-tag",
+    "publish-release-minor": "npm version minor && npm run push-tag",
+    "publish-release-major": "npm version major && npm run push-tag"
+  }
+}
