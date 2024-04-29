@@ -1,7 +1,7 @@
-import dayjs from './dayjsWrapper';
+import dayjs from './dayjsWrapper'
 
 export default (time) => {
-  const date = dayjs(time);
+  const date = dayjs(time)
 
   return {
     year: date.year(),
@@ -14,5 +14,5 @@ export default (time) => {
     yearday: date.dayOfYear(),
     week: date.week(),
     quarter: date.quarter()
-  };
-};
+  }
+}

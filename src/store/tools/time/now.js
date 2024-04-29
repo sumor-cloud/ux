@@ -1,1 +1,1 @@
-export default () => Date.now();
+export default () => Date.now()

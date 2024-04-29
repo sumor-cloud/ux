@@ -1,23 +1,23 @@
-import axios from 'axios';
+import axios from 'axios'
 
 export default async (api, params, options) => {
-  options = options || {};
+  options = options || {}
 
-  let multipart = false;
+  let multipart = false
   for (const i in params) {
-    if (params[i] instanceof File) { multipart = true; }
+    if (params[i] instanceof File) { multipart = true }
   }
-  let requestData;
+  let requestData
   if (multipart) {
-    requestData = new FormData();
+    requestData = new FormData()
     for (const i in params) {
       if (typeof params[i] === 'object' && !(params[i] instanceof File)) {
-        params[i] = JSON.stringify(params[i]);
+        params[i] = JSON.stringify(params[i])
       }
-      requestData.append(i, params[i]);
+      requestData.append(i, params[i])
     }
   } else {
-    requestData = params;
+    requestData = params
   }
   try {
     return await axios({
@@ -29,14 +29,14 @@ export default async (api, params, options) => {
         'Accept-Language': options.language ? options.language : undefined,
         'sumor-timezone': options.timezone ? options.timezone : undefined // -new Date().getTimezoneOffset(),
       }
-    });
+    })
   } catch (e) {
-    let data = e.response?e.response.data:{};
+    const data = e.response ? e.response.data : {}
     return {
       error: true,
-      code:e.code,
-      message:e.message,
-      ...data,
-    };
+      code: e.code,
+      message: e.message,
+      ...data
+    }
   }
-};
+}

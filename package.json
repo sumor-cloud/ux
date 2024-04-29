@@ -13,10 +13,14 @@
     "vue"
   ],
   "dependencies": {
-    "axios": "^1.3.2",
+    "axios": "^1.6.8",
     "dayjs": "^1.11.10",
     "vconsole": "^3.15.1",
     "vue": "^3.3.4"
+  },
+  "devDependencies": {
+    "eslint": "^8.57.0",
+    "eslint-config-standard": "^17.1.0"
   },
   "files": [
     "dist",
@@ -25,10 +29,15 @@
     ".gitignore"
   ],
   "scripts": {
+    "lint": "eslint --ext .js,.vue src",
+    "audit": "npm audit",
+    "test": "echo \"Error: no test specified\"",
+    "coverage": "echo \"Error: no test specified\"",
     "push-tag": "git push --tags && git push",
     "publish-beta": "npm version prerelease --preid beta && npm run push-tag",
     "publish-release-patch": "npm version patch && npm run push-tag",
     "publish-release-minor": "npm version minor && npm run push-tag",
-    "publish-release-major": "npm version major && npm run push-tag"
+    "publish-release-major": "npm version major && npm run push-tag",
+    "check": "eslint --fix . && npm audit fix --force && npm run coverage"
   }
 }
