@@ -1,39 +1,39 @@
-<template>
-  <div class="SumorApp"><slot></slot></div>
-</template>
-<script>
 export default {
-  props:[],
-  data(){
+  props: [],
+  template: `
+      <div class="SumorApp" style="width: 100%;height: 100%;overflow: auto;"><slot></slot></div>
+    `,
+
+  data () {
     return {
-      sumor: this.$store("sumor")
+      sumor: this.$store('sumor')
     }
   },
-  async mounted(){
-    if(this.$env.dark){
-      this.loadDarkMode();
-      this.listenDarkModeChange();
+  async mounted () {
+    if (this.$env.dark) {
+      this.loadDarkMode()
+      this.listenDarkModeChange()
     }
 
-    if (typeof window !== "undefined" && window) {
+    if (typeof window !== 'undefined' && window) {
       window.addEventListener('resize', () => {
-        this.sumor.resize();
-        setTimeout(()=>{
-          this.sumor.resize();
-        },10);
+        this.sumor.resize()
+        setTimeout(() => {
+          this.sumor.resize()
+        }, 10)
       })
 
       // 监听popstate事件（浏览器前进后退）
       window.addEventListener('popstate', () => {
-        this.sumor.resize();
-        setTimeout(()=>{
-          this.sumor.resize();
-        },10);
+        this.sumor.resize()
+        setTimeout(() => {
+          this.sumor.resize()
+        }, 10)
       })
     }
   },
-  methods:{
-    loadDarkMode() {
+  methods: {
+    loadDarkMode () {
       if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
         // 当前处于dark模式
         this.sumor.setDark(true)
@@ -42,8 +42,8 @@ export default {
         this.sumor.setDark(false)
       }
     },
-    listenDarkModeChange() {
-      const darkModeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    listenDarkModeChange () {
+      const darkModeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)')
 
       // 监听媒体查询的变化
       darkModeMediaQuery.addEventListener('change', (event) => {
@@ -54,15 +54,7 @@ export default {
           // dark模式被禁用
           this.sumor.setDark(false)
         }
-      });
+      })
     }
   }
 }
-</script>
-<style scoped>
-.SumorApp{
-  width: 100%;
-  height: 100%;
-  overflow: auto;
-}
-</style>
