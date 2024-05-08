@@ -1,10 +1,8 @@
 import store from './store/index.js'
-import init from './store/init.js'
+
 export {
-  store,
-  init
+  store
 }
 export default {
-  store,
-  init
+  store
 }
