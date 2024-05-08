@@ -1,3 +1,4 @@
+import init from './init.js'
 export default () => {
   return {
     state: () => {
@@ -6,10 +7,22 @@ export default () => {
           height: 0,
           width: 0,
           dark: false
-        }
+        },
+        personalization: {
+          dark: null,
+          language: null
+        },
+        _listened: false
       }
     },
     getters: {
+      dark (state) {
+        if (state.personalization.dark !== null) {
+          return state.personalization.dark
+        } else {
+          return state.screen.dark
+        }
+      }
     },
     actions: {
       updateScreen () {
@@ -20,6 +33,19 @@ export default () => {
           dark
         }
         this.screen = Object.assign({}, this.screen, screen)
+      },
+      updatePersonalization (key, value) {
+        if (value === undefined) {
+          value = null
+        }
+        this.personalization = Object.assign({}, this.personalization)
+        this.personalization[key] = value
+      },
+      listen () {
+        if (!this._listened) {
+          this._listened = true
+          init(this)
+        }
       }
     }
   }
