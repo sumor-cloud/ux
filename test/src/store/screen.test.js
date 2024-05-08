@@ -57,6 +57,7 @@ describe('Sumor Store', () => {
     window.innerHeight = 0
     window.innerWidth = 0
     store.listen()
+    store.listen() // just test listen twice
     window.innerHeight = 600
     window.innerWidth = 800
     expect(store.screen.height).toBe(0)
