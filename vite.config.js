@@ -36,6 +36,9 @@ export default defineConfig({
   root: process.cwd(),
   base: '/',
   plugins: [vue()],
+  server: {
+    port: 30200
+  },
   build: {
     emptyOutDir: false,
     sourcemap: true,
