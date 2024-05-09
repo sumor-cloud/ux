@@ -33,14 +33,14 @@ export default () => {
         if (state.personalization.language !== null) {
           return state.personalization.language
         } else {
-          return navigator.language
+          return window.navigator.language
         }
       },
       timezone (state) {
         if (state.personalization.timezone !== null) {
           return state.personalization.timezone
         } else {
-          return Intl.DateTimeFormat().resolvedOptions().timeZone
+          return window.Intl.DateTimeFormat().resolvedOptions().timeZone
         }
       }
     },

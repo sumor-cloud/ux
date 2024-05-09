@@ -194,4 +194,66 @@ describe('Sumor Store', () => {
     expect(store.personalization.dark).toBe(false)
     store.stop()
   }, 10 * 1000)
+  it('language', async () => {
+    const store = useStore()
+    expect(store.personalization.language).toBe(null)
+    store.listen()
+    expect(store.language).toBe(window.navigator.language)
+
+    // test set language to en
+    store.updatePersonalization('language', 'en')
+    expect(store.personalization.language).toBe('en')
+    expect(store.language).toBe('en')
+
+    // test set language to zh
+    store.updatePersonalization('language', 'zh')
+    expect(store.personalization.language).toBe('zh')
+    expect(store.language).toBe('zh')
+
+    // test revert to default value
+    store.updatePersonalization('language')
+    expect(store.personalization.language).toBe(null)
+    expect(store.language).toBe(window.navigator.language)
+
+    // test reload from localStorage
+    window.localStorage.setItem('personalization', JSON.stringify({ language: 'en' }))
+    await new Promise((resolve) => {
+      setTimeout(() => {
+        resolve()
+      }, 200)
+    })
+    expect(store.personalization.language).toBe('en')
+    store.stop()
+  })
+  it('timezone', async () => {
+    const store = useStore()
+    expect(store.personalization.timezone).toBe(null)
+    store.listen()
+    expect(store.timezone).toBe(window.Intl.DateTimeFormat().resolvedOptions().timeZone)
+
+    // test set timezone to Asia/Shanghai
+    store.updatePersonalization('timezone', 'Asia/Shanghai')
+    expect(store.personalization.timezone).toBe('Asia/Shanghai')
+    expect(store.timezone).toBe('Asia/Shanghai')
+
+    // test set timezone to America/New_York
+    store.updatePersonalization('timezone', 'America/New_York')
+    expect(store.personalization.timezone).toBe('America/New_York')
+    expect(store.timezone).toBe('America/New_York')
+
+    // test revert to default value
+    store.updatePersonalization('timezone')
+    expect(store.personalization.timezone).toBe(null)
+    expect(store.timezone).toBe(window.Intl.DateTimeFormat().resolvedOptions().timeZone)
+
+    // test reload from localStorage
+    window.localStorage.setItem('personalization', JSON.stringify({ timezone: 'Asia/Shanghai' }))
+    await new Promise((resolve) => {
+      setTimeout(() => {
+        resolve()
+      }, 200)
+    })
+    expect(store.personalization.timezone).toBe('Asia/Shanghai')
+    store.stop()
+  })
 })
