@@ -6,7 +6,6 @@ import {
 
 import puppeteer from 'puppeteer'
 
-import coverage from '../utils/coverage.js'
 import mockServer from '../utils/mockServer/index.js'
 let server, url
 const port = 30201
@@ -55,13 +54,9 @@ describe('Demo', () => {
     const browser = await puppeteer.launch()
     const page = await browser.newPage()
     await page.goto(url)
-    const stopCoverage = await coverage(page)
-
     const result = await page.evaluate(() => {
-      return window.sumor.hello('World')
+      return window.demo.hello('World')
     })
-
-    await stopCoverage()
     await browser.close()
     expect(result).toStrictEqual('Hello World!')
   }, 60 * 1000)
@@ -69,13 +64,9 @@ describe('Demo', () => {
     const browser = await puppeteer.launch()
     const page = await browser.newPage()
     await page.goto(url)
-    const stopCoverage = await coverage(page)
-
     const result = await page.evaluate(() => {
-      return window.sumor.goodbye('World')
+      return window.demo.goodbye('World')
     })
-
-    await stopCoverage()
     await browser.close()
     expect(result).toStrictEqual('Goodbye World!')
   }, 60 * 1000)

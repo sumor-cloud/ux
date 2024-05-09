@@ -22,7 +22,8 @@
     "pinia": "^2.1.6",
     "vue": "^3.3.4",
     "vue-lazyload": "^3.0.0",
-    "vue-router": "^4.2.4"
+    "vue-router": "^4.2.4",
+    "dayjs": "^1.11.11"
   },
   "devDependencies": {
     "@jest/globals": "^29.7.0",
