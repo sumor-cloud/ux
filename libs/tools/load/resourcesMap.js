@@ -7,5 +7,9 @@ export default {
   },
   xlsx: {
     js: 'https://cdn.bootcdn.net/ajax/libs/xlsx/0.18.5/xlsx.full.min.js'
+  },
+  dayjs: {
+    js: 'https://cdn.bootcdn.net/ajax/libs/dayjs/1.10.8/dayjs.min.js',
+    prefix: 'https://cdn.bootcdn.net/ajax/libs/dayjs/1.10.8'
   }
 }

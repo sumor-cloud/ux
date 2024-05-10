@@ -3,6 +3,7 @@ import qrcode from './tools/qrcode/index.js'
 import table from './tools/table/index.js'
 import copy from './tools/copy/index.js'
 import time from './tools/time/index.js'
+import upload from './tools/upload.js'
 import personalization from './personalization/index.js'
 export {
   load,
@@ -10,6 +11,7 @@ export {
   table,
   copy,
   time,
+  upload,
   personalization
 }
 export default {
@@ -18,5 +20,6 @@ export default {
   table,
   copy,
   time,
+  upload,
   personalization
 }
