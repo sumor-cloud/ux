@@ -256,4 +256,31 @@ describe('Sumor Store', () => {
     expect(store.personalization.timezone).toBe('Asia/Shanghai')
     store.stop()
   })
+  it('set page info', () => {
+    const store = useStore()
+    store.setPageInfo({
+      title: 'Sumor UX',
+      description: 'Sumor UX is a modern web framework',
+      keywords: 'Sumor, UX, web framework'
+    })
+    expect(store.pageInfo.title).toBe('Sumor UX')
+    expect(store.pageInfo.description).toBe('Sumor UX is a modern web framework')
+    expect(store.pageInfo.keywords).toBe('Sumor, UX, web framework')
+
+    expect(window.document.title).toBe('Sumor UX')
+    expect(window.document.querySelector('meta[name="description"]').content)
+      .toBe('Sumor UX is a modern web framework')
+    expect(window.document.querySelector('meta[name="keywords"]').content)
+      .toBe('Sumor, UX, web framework')
+  })
+  it('no window', () => {
+    delete global.window
+    const store = useStore()
+    store.listen()
+    store.updateScreen()
+    store.updatePersonalization()
+    store.stop()
+    expect(store.language).toBe('en')
+    expect(store.timezone).toBe('Asia/Shanghai')
+  })
 })

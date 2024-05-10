@@ -44,7 +44,7 @@ export default defineConfig({
     sourcemap: true,
     outDir: './dist',
     lib: {
-      entry: './src/index.js',
+      entry: './index.js',
       name,
       fileName: (format) => `index.${format}.js`
     },

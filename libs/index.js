@@ -5,6 +5,16 @@ import copy from './tools/copy/index.js'
 import time from './tools/time/index.js'
 import upload from './tools/upload.js'
 import personalization from './personalization/index.js'
+import showConsole from './tools/showConsole.js'
+
+// if url parameter contains debug=true then show console button
+if (typeof window !== 'undefined' && window) {
+  // if url parameter contains debug=true then show console button
+  if (window.location.href.indexOf('debug=true') > -1) {
+    showConsole()
+  }
+}
+
 export {
   load,
   qrcode,

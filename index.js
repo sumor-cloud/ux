@@ -1,4 +1,4 @@
-import store from './store/index.js'
+import store from './src/store/index.js'
 import {
   load,
   qrcode,
@@ -7,7 +7,7 @@ import {
   time,
   upload,
   personalization
-} from '../libs/index.js'
+} from './libs/index.js'
 
 export {
   store,

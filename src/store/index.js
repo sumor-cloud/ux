@@ -1,6 +1,7 @@
 import { useSSRContext } from 'vue'
 import init from './init.js'
 import setPageInfo from './setPageInfo.js'
+import call from './call.js'
 
 export default (options) => {
   options = options || {}
@@ -27,6 +28,20 @@ export default (options) => {
           title: '',
           description: '',
           keywords: ''
+        },
+        instance: {},
+        meta: {
+          name: null,
+          api: {},
+          text: {},
+          instance: {}
+        },
+        token: {
+          id: null,
+          user: null,
+          time: null,
+          permission: {},
+          data: {}
         },
         _listened: false
       }
@@ -100,16 +115,6 @@ export default (options) => {
           screen.isWechat = /micromessenger/gi.test(window.navigator.userAgent)
 
           this.screen = Object.assign({}, this.screen, screen)
-        } else {
-          this.screen = {
-            height: 0,
-            width: 0,
-            dark: false,
-            landscape: false,
-            isIPhone: false,
-            isIPhoneX: false,
-            isWechat: false
-          }
         }
       },
       updatePersonalization (key, value) {
@@ -147,6 +152,69 @@ export default (options) => {
             window.localStorage.setItem('personalization', JSON.stringify(this.personalization))
           }
         }
+      },
+      async call (api, params) {
+        if (SSR) {
+          throw new Error('Forbidden to call API in SSR mode, which will cause performance and other issues. Please use SSRContext mode to load data')
+        }
+        const options = {}
+        const response = await call(api, params, options)
+        if (!response.error) {
+          let instance = response.headers['sumor-instance'] || ''
+          instance = instance.split('_')
+          this.instance = {
+            version: instance[0],
+            server: instance[1],
+            port: instance[2],
+            time: instance[3]
+          }
+          return response.data
+        } else {
+          return response
+        }
+      },
+      async updateMeta (force) {
+        if (!this.meta.name || force) {
+          const res = await call('/sumor/meta')
+          Object.assign(this.meta, res.data.data)
+        }
+      },
+      async updateToken () {
+        const res = await this.call('/sumor/token')
+        Object.assign(this.token, res.data)
+        // this.token.id = res.data.id || null;
+        // this.token.user = res.data.user || null;
+        // this.token.time = res.data.time || null;
+        // this.token.permission = res.data.permission || {};
+        // this.token.data = res.data.data || {};
+      },
+      async logout () {
+        await this.call('/sumor/logout')
+        await this.updateToken()
+      },
+      form (path) {
+        const call = this.call
+        class Form {
+          constructor () {
+            // 发送状态
+            this.pending = false // 用于是否繁忙
+            this.data = {}
+          }
+
+          async call (data) {
+            data = Object.assign({}, this.data, data)
+            this.pending = true
+
+            const res = await call(path, data)
+            this.pending = false
+            if (!res.error) {
+              return res.data
+            } else {
+              throw res
+            }
+          }
+        }
+        return new Form()
       },
       listen () {
         if (!this._listened) {
