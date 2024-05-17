@@ -7,7 +7,7 @@ import fs from 'fs'
 // load package.json dependencies
 const pkg = JSON.parse(fs.readFileSync(resolve(process.cwd(), 'package.json'), 'utf-8'))
 
-const npmToCamelCase = (str) => {
+const npmToCamelCase = str => {
   if (str) {
     // 替换/为-
     str = str.replace(/\//g, '-')
@@ -16,7 +16,7 @@ const npmToCamelCase = (str) => {
     str = str.replace(/@/g, '')
 
     // 首字母大写
-    str = str.replace(/(\w)/, (v) => v.toUpperCase())
+    str = str.replace(/(\w)/, v => v.toUpperCase())
 
     return str.replace(/-(\w)/g, (_, c) => (c ? c.toUpperCase() : ''))
   }
@@ -46,7 +46,7 @@ export default defineConfig({
     lib: {
       entry: './index.js',
       name,
-      fileName: (format) => `index.${format}.js`
+      fileName: format => `index.${format}.js`
     },
     rollupOptions: {
       external,

@@ -15,15 +15,7 @@ if (typeof window !== 'undefined' && window) {
   }
 }
 
-export {
-  load,
-  qrcode,
-  table,
-  copy,
-  time,
-  upload,
-  personalization
-}
+export { load, qrcode, table, copy, time, upload, personalization }
 export default {
   load,
   qrcode,

@@ -3,7 +3,7 @@ import init from './init.js'
 import setPageInfo from './setPageInfo.js'
 import call from './call.js'
 
-export default (options) => {
+export default options => {
   options = options || {}
   const SSR = options.SSR || false
 
@@ -47,14 +47,14 @@ export default (options) => {
       }
     },
     getters: {
-      dark (state) {
+      dark(state) {
         if (state.personalization.dark !== null) {
           return state.personalization.dark
         } else {
           return state.screen.dark
         }
       },
-      language (state) {
+      language(state) {
         if (state.personalization.language !== null) {
           return state.personalization.language
         } else if (typeof window !== 'undefined' && window) {
@@ -63,7 +63,7 @@ export default (options) => {
           return 'en'
         }
       },
-      timezone (state) {
+      timezone(state) {
         if (state.personalization.timezone !== null) {
           return state.personalization.timezone
         } else if (typeof window !== 'undefined' && window) {
@@ -74,7 +74,7 @@ export default (options) => {
       }
     },
     actions: {
-      getSSRData () {
+      getSSRData() {
         let data = null
         if (SSR) {
           const ctx = useSSRContext()
@@ -83,7 +83,7 @@ export default (options) => {
         }
         return data
       },
-      setPageInfo ({ title, name, keywords, desc, description }) {
+      setPageInfo({ title, name, keywords, desc, description }) {
         this.pageInfo.title = title || name || ''
         this.pageInfo.description = desc || description || ''
         this.pageInfo.keywords = keywords || ''
@@ -99,7 +99,7 @@ export default (options) => {
           setPageInfo(this.pageInfo)
         }
       },
-      updateScreen () {
+      updateScreen() {
         if (typeof window !== 'undefined' && window) {
           const dark = window.matchMedia('(prefers-color-scheme: dark)').matches
           const screen = {
@@ -117,7 +117,7 @@ export default (options) => {
           this.screen = Object.assign({}, this.screen, screen)
         }
       },
-      updatePersonalization (key, value) {
+      updatePersonalization(key, value) {
         if (typeof window !== 'undefined' && window) {
           // load from localStorage
           const personalization = window.localStorage.getItem('personalization')
@@ -153,9 +153,11 @@ export default (options) => {
           }
         }
       },
-      async call (api, params) {
+      async call(api, params) {
         if (SSR) {
-          throw new Error('Forbidden to call API in SSR mode, which will cause performance and other issues. Please use SSRContext mode to load data')
+          throw new Error(
+            'Forbidden to call API in SSR mode, which will cause performance and other issues. Please use SSRContext mode to load data'
+          )
         }
         const options = {}
         const response = await call(api, params, options)
@@ -173,13 +175,13 @@ export default (options) => {
           return response
         }
       },
-      async updateMeta (force) {
+      async updateMeta(force) {
         if (!this.meta.name || force) {
           const res = await call('/sumor/meta')
           Object.assign(this.meta, res.data.data)
         }
       },
-      async updateToken () {
+      async updateToken() {
         const res = await this.call('/sumor/token')
         Object.assign(this.token, res.data)
         // this.token.id = res.data.id || null;
@@ -188,20 +190,20 @@ export default (options) => {
         // this.token.permission = res.data.permission || {};
         // this.token.data = res.data.data || {};
       },
-      async logout () {
+      async logout() {
         await this.call('/sumor/logout')
         await this.updateToken()
       },
-      form (path) {
+      form(path) {
         const call = this.call
         class Form {
-          constructor () {
+          constructor() {
             // 发送状态
             this.pending = false // 用于是否繁忙
             this.data = {}
           }
 
-          async call (data) {
+          async call(data) {
             data = Object.assign({}, this.data, data)
             this.pending = true
 
@@ -216,7 +218,7 @@ export default (options) => {
         }
         return new Form()
       },
-      listen () {
+      listen() {
         if (!this._listened) {
           this._listened = true
           init(this)
@@ -225,7 +227,7 @@ export default (options) => {
           }, 100)
         }
       },
-      stop () {
+      stop() {
         this._listened = false
         clearInterval(this._listenTimer)
       }

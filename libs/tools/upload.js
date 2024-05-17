@@ -1,5 +1,5 @@
 export default async function (multiple) {
-  return await new Promise((resolve) => {
+  return await new Promise(resolve => {
     const uploader = document.createElement('input')
     uploader.type = 'file'
     uploader.name = 'file'

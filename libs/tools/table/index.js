@@ -1,8 +1,8 @@
 import loadResource from '../load/index.js'
 export default {
-  async import (file) {
+  async import(file) {
     await loadResource('xlsx')
-    const workbook = await new Promise((resolve) => {
+    const workbook = await new Promise(resolve => {
       const reader = new window.FileReader()
       reader.readAsArrayBuffer(file)
       reader.onload = () => {
@@ -16,7 +16,7 @@ export default {
     const worksheet = workbook.Sheets[sheetTab]
     return window.XLSX.utils.sheet_to_json(worksheet)
   },
-  async export ({ name, type, data }) {
+  async export({ name, type, data }) {
     await loadResource('xlsx')
     const worksheetName = 'default'
     const worksheet = window.XLSX.utils.aoa_to_sheet(data)

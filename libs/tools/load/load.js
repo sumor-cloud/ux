@@ -1,6 +1,6 @@
 const status = {}
 export default {
-  css (url) {
+  css(url) {
     const headElements = document.head.children
     let exist = false
     for (const i in headElements) {
@@ -17,9 +17,9 @@ export default {
       head.appendChild(link)
     }
   },
-  async js (url) {
+  async js(url) {
     if (status[url]) {
-      await new Promise((resolve) => {
+      await new Promise(resolve => {
         status[url].push(() => {
           resolve()
         })
@@ -34,15 +34,19 @@ export default {
       }
       if (!exist) {
         status[url] = []
-        await new Promise((resolve) => {
+        await new Promise(resolve => {
           const head = document.getElementsByTagName('head')[0]
           const script = document.createElement('script')
           script.src = url
           script.type = 'text/javascript'
           if (script.addEventListener) {
-            script.addEventListener('load', function () {
-              resolve()
-            }, false)
+            script.addEventListener(
+              'load',
+              function () {
+                resolve()
+              },
+              false
+            )
           } else if (script.attachEvent) {
             script.attachEvent('onreadystatechange', function () {
               const target = window.event.srcElement

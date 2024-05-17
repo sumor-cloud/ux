@@ -1,6 +1,6 @@
 import dayjs from './dayjsWrapper'
 
-export default (time) => {
+export default time => {
   const date = dayjs(time)
 
   return {

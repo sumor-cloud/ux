@@ -1,4 +1,4 @@
-export default async (val) => {
+export default async val => {
   if (navigator && navigator.clipboard && navigator.permissions) {
     await navigator.clipboard.writeText(val)
   } else {

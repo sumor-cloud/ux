@@ -1,4 +1,4 @@
-export default (store) => {
+export default store => {
   if (typeof window !== 'undefined' && window) {
     // listen to window resize
     window.addEventListener('resize', () => {
@@ -15,7 +15,7 @@ export default (store) => {
 
     // listen dark mode
     const darkModeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)')
-    darkModeMediaQuery.addEventListener('change', (event) => {
+    darkModeMediaQuery.addEventListener('change', event => {
       store.updateScreen()
     })
 

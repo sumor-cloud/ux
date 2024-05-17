@@ -1,5 +1,5 @@
 {
-  "name":"时间差距",
+  "name": "时间差距",
   "arguments": "target, from",
   "parameters": {
     "target": {

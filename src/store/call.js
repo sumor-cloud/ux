@@ -5,7 +5,9 @@ export default async (api, params, options) => {
 
   let multipart = false
   for (const i in params) {
-    if (params[i] instanceof File) { multipart = true }
+    if (params[i] instanceof File) {
+      multipart = true
+    }
   }
   let requestData
   if (multipart) {

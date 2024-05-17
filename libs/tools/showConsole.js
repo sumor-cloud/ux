@@ -3,7 +3,7 @@ export default async () => {
   if (typeof window !== 'undefined' && window) {
     await loadResource('vconsole')
     // const VConsole = await import('vconsole')
-        new window.VConsole() // eslint-disable-line
+    new window.VConsole() // eslint-disable-line
 
     const vConsoleSwitch = document.querySelector('.vc-switch')
     if (vConsoleSwitch) {
@@ -16,12 +16,12 @@ export default async () => {
       let offsetX = 0
       let offsetY = 0
       let isDrag = false
-      vConsoleSwitch.addEventListener('mousedown', (e) => {
+      vConsoleSwitch.addEventListener('mousedown', e => {
         offsetX = e.offsetX
         offsetY = e.offsetY
         isDrag = true
       })
-      document.addEventListener('mousemove', (e) => {
+      document.addEventListener('mousemove', e => {
         if (isDrag) {
           vConsoleSwitch.style.right = `${window.innerWidth - e.clientX - offsetX}px`
           vConsoleSwitch.style.bottom = `${window.innerHeight - e.clientY - offsetY}px`

@@ -18,25 +18,33 @@ describe('Tools', () => {
   afterAll(async () => {
     await server.close()
   })
-  it('Load JS Resource', async () => {
-    const browser = await puppeteer.launch()
-    const page = await browser.newPage()
-    await page.goto(url)
-    const result = await page.evaluate(async () => {
-      await window.sumor.load('qrcode')
-      return !!window.QRCode
-    })
-    await browser.close()
-    expect(result).toStrictEqual(true)
-  }, 60 * 1000)
-  it('QRCode', async () => {
-    const browser = await puppeteer.launch()
-    const page = await browser.newPage()
-    await page.goto(url)
-    const result = await page.evaluate(async () => {
-      return await window.sumor.qrcode('https://www.sumor.com')
-    })
-    await browser.close()
-    expect(result.indexOf('data:image/png;base64')).toStrictEqual(0)
-  }, 60 * 1000)
+  it(
+    'Load JS Resource',
+    async () => {
+      const browser = await puppeteer.launch()
+      const page = await browser.newPage()
+      await page.goto(url)
+      const result = await page.evaluate(async () => {
+        await window.sumor.load('qrcode')
+        return !!window.QRCode
+      })
+      await browser.close()
+      expect(result).toStrictEqual(true)
+    },
+    60 * 1000
+  )
+  it(
+    'QRCode',
+    async () => {
+      const browser = await puppeteer.launch()
+      const page = await browser.newPage()
+      await page.goto(url)
+      const result = await page.evaluate(async () => {
+        return await window.sumor.qrcode('https://www.sumor.com')
+      })
+      await browser.close()
+      expect(result.indexOf('data:image/png;base64')).toStrictEqual(0)
+    },
+    60 * 1000
+  )
 })

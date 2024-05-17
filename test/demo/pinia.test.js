@@ -1,6 +1,4 @@
-import {
-  describe, expect, it, beforeEach
-} from '@jest/globals'
+import { describe, expect, it, beforeEach } from '@jest/globals'
 import { setActivePinia, createPinia } from 'pinia'
 import { useCounter } from '../../src/demo/counter.js'
 

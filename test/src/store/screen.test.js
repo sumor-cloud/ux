@@ -1,6 +1,4 @@
-import {
-  describe, expect, it, beforeEach
-} from '@jest/globals'
+import { describe, expect, it, beforeEach } from '@jest/globals'
 import { setActivePinia, createPinia, defineStore } from 'pinia'
 
 import { JSDOM } from 'jsdom'
@@ -18,7 +16,7 @@ describe('Sumor Store', () => {
     window.matchMedia = matchMedia
     const storage = {}
     Object.defineProperty(dom.window, 'localStorage', {
-      getItem: (key) => storage[key],
+      getItem: key => storage[key],
       setItem: (key, value) => {
         storage[key] = value
       }
@@ -72,7 +70,7 @@ describe('Sumor Store', () => {
     window.innerWidth = 800
     expect(store.screen.height).toBe(0)
     expect(store.screen.width).toBe(0)
-    await new Promise((resolve) => {
+    await new Promise(resolve => {
       setTimeout(() => {
         resolve()
       }, 200)
@@ -158,42 +156,46 @@ describe('Sumor Store', () => {
     expect(store.screen.isWechat).toBe(true)
     store.stop()
   })
-  it('personalization', async () => {
-    const store = useStore()
-    expect(store.personalization.dark).toBe(null)
-    store.listen()
+  it(
+    'personalization',
+    async () => {
+      const store = useStore()
+      expect(store.personalization.dark).toBe(null)
+      store.listen()
 
-    // test dark mode auto detect
-    matchMedia('(prefers-color-scheme: dark)').changeDark(true)
-    matchMedia('(prefers-color-scheme: dark)').trigger('change')
-    expect(store.dark).toBe(true)
+      // test dark mode auto detect
+      matchMedia('(prefers-color-scheme: dark)').changeDark(true)
+      matchMedia('(prefers-color-scheme: dark)').trigger('change')
+      expect(store.dark).toBe(true)
 
-    // test set dark to false
-    store.updatePersonalization('dark', false)
-    expect(store.personalization.dark).toBe(false)
-    expect(store.dark).toBe(false)
+      // test set dark to false
+      store.updatePersonalization('dark', false)
+      expect(store.personalization.dark).toBe(false)
+      expect(store.dark).toBe(false)
 
-    // test set dark to true
-    store.updatePersonalization('dark', true)
-    expect(store.personalization.dark).toBe(true)
-    expect(store.dark).toBe(true)
+      // test set dark to true
+      store.updatePersonalization('dark', true)
+      expect(store.personalization.dark).toBe(true)
+      expect(store.dark).toBe(true)
 
-    // test revert to default value
-    store.updatePersonalization('dark')
-    store.updatePersonalization('dark') // just test no value change
-    expect(store.personalization.dark).toBe(null)
-    expect(store.dark).toBe(true)
+      // test revert to default value
+      store.updatePersonalization('dark')
+      store.updatePersonalization('dark') // just test no value change
+      expect(store.personalization.dark).toBe(null)
+      expect(store.dark).toBe(true)
 
-    // test reload from localStorage
-    window.localStorage.setItem('personalization', JSON.stringify({ dark: false }))
-    await new Promise((resolve) => {
-      setTimeout(() => {
-        resolve()
-      }, 200)
-    })
-    expect(store.personalization.dark).toBe(false)
-    store.stop()
-  }, 10 * 1000)
+      // test reload from localStorage
+      window.localStorage.setItem('personalization', JSON.stringify({ dark: false }))
+      await new Promise(resolve => {
+        setTimeout(() => {
+          resolve()
+        }, 200)
+      })
+      expect(store.personalization.dark).toBe(false)
+      store.stop()
+    },
+    10 * 1000
+  )
   it('language', async () => {
     const store = useStore()
     expect(store.personalization.language).toBe(null)
@@ -217,7 +219,7 @@ describe('Sumor Store', () => {
 
     // test reload from localStorage
     window.localStorage.setItem('personalization', JSON.stringify({ language: 'en' }))
-    await new Promise((resolve) => {
+    await new Promise(resolve => {
       setTimeout(() => {
         resolve()
       }, 200)
@@ -248,7 +250,7 @@ describe('Sumor Store', () => {
 
     // test reload from localStorage
     window.localStorage.setItem('personalization', JSON.stringify({ timezone: 'Asia/Shanghai' }))
-    await new Promise((resolve) => {
+    await new Promise(resolve => {
       setTimeout(() => {
         resolve()
       }, 200)
@@ -268,10 +270,12 @@ describe('Sumor Store', () => {
     expect(store.pageInfo.keywords).toBe('Sumor, UX, web framework')
 
     expect(window.document.title).toBe('Sumor UX')
-    expect(window.document.querySelector('meta[name="description"]').content)
-      .toBe('Sumor UX is a modern web framework')
-    expect(window.document.querySelector('meta[name="keywords"]').content)
-      .toBe('Sumor, UX, web framework')
+    expect(window.document.querySelector('meta[name="description"]').content).toBe(
+      'Sumor UX is a modern web framework'
+    )
+    expect(window.document.querySelector('meta[name="keywords"]').content).toBe(
+      'Sumor, UX, web framework'
+    )
   })
   it('no window', () => {
     delete global.window
