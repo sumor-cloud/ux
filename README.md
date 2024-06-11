@@ -5,7 +5,6 @@ A [Sumor Cloud](https://sumor.cloud) Tool.
 
 This is a lightweight ux for Frontend. Work with Sumor Cloud App Framework.
 
-
 [![CI](https://github.com/sumor-cloud/ux/actions/workflows/ci.yml/badge.svg)](https://github.com/sumor-cloud/ux/actions/workflows/ci.yml)
 [![Test](https://github.com/sumor-cloud/ux/actions/workflows/ut.yml/badge.svg)](https://github.com/sumor-cloud/ux/actions/workflows/ut.yml)
 [![Coverage](https://github.com/sumor-cloud/ux/actions/workflows/coverage.yml/badge.svg)](https://github.com/sumor-cloud/ux/actions/workflows/coverage.yml)
