@@ -10,7 +10,9 @@ const useStore = defineStore('store', storeDefinition())
 
 describe('Sumor Store', () => {
   beforeEach(() => {
-    const dom = new JSDOM('<!DOCTYPE html><p>Hello world</p>', { url: 'https://example.org/' })
+    const dom = new JSDOM('<!DOCTYPE html><p>Hello world</p>', {
+      url: 'https://example.org/'
+    })
     global.window = dom.window
     global.document = dom.window.document
     window.matchMedia = matchMedia
