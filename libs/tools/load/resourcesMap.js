@@ -11,5 +11,11 @@ export default {
   dayjs: {
     js: 'https://cdn.bootcdn.net/ajax/libs/dayjs/1.10.8/dayjs.min.js',
     prefix: 'https://cdn.bootcdn.net/ajax/libs/dayjs/1.10.8'
+  },
+  jszip: {
+    js: 'https://cdn.bootcdn.net/ajax/libs/jszip/3.10.1/jszip.min.js'
+  },
+  highlight: {
+    js: 'https://cdn.bootcdn.net/ajax/libs/highlight.js/11.9.0/highlight.min.js'
   }
 }

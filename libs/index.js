@@ -6,6 +6,7 @@ import time from './tools/time/index.js'
 import upload from './tools/upload.js'
 import personalization from './personalization/index.js'
 import showConsole from './tools/showConsole.js'
+import zip from './tools/zip/index.js'
 
 // if url parameter contains debug=true then show console button
 if (typeof window !== 'undefined' && window) {
@@ -23,5 +24,6 @@ export default {
   copy,
   time,
   upload,
-  personalization
+  personalization,
+  zip
 }
